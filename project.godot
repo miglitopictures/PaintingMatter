@@ -25,7 +25,6 @@ boot_splash/minimum_display_time=5000
 
 window/size/viewport_width=360
 window/size/viewport_height=200
-window/size/mode=2
 window/size/window_width_override=640
 window/size/window_height_override=400
 window/stretch/mode="viewport"
