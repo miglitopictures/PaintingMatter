@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqily0i65tjwf"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_fd3m7"]
+[ext_resource type="Texture2D" uid="uid://culvrvs7d2hlh" path="res://painting matter_instructions.png" id="2_4e71x"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(360, 200)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fd3m7")
+resolution = 2
+solid_color = Color(0.789767, 0.137074, 0.422971, 1)
+brush_color = Color(1, 0.254902, 0, 1)
+ctrl_brush_color = Color(0, 0.573333, 0.8, 1)
+
+[node name="Instructions" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4e71x")

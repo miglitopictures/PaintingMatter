@@ -1,0 +1,47 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Painting Matter"
+config/description="Physics-based painting toy."
+config/version="1.0"
+run/main_scene="res://painting_matter.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/image="res://painting matter_instructions.png"
+boot_splash/use_filter=false
+config/icon="res://icon.png"
+boot_splash/minimum_display_time=5000
+
+[display]
+
+window/size/viewport_width=360
+window/size/viewport_height=200
+window/size/mode=2
+window/size/window_width_override=640
+window/size/window_height_override=400
+window/stretch/mode="viewport"
+
+[editor]
+
+movie_writer/movie_file="D:/miglito/Videos/recording.avi"
+
+[input]
+
+mouse={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(220, 5),"global_position":Vector2(224, 46),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+
+[rendering]
+
+viewport/transparent_background=true

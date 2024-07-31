@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2sh4ey7v803o"]
+
+[ext_resource type="Script" path="res://legacy/scripts/unrelated/node_2d.gd" id="1_kxc22"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_kxc22")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2(-90, 213)
+points = PackedVector2Array(198, 81, 276, -117, 367, 69, 158, -67, 417, -77)
+closed = true
+width = 19.115
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
