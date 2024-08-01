@@ -16,17 +16,16 @@ config/version="1.0"
 run/main_scene="res://painting_matter.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
-boot_splash/image="res://painting matter_instructions.png"
+boot_splash/image="res://assets/textures/phisicalmatter.png"
 boot_splash/use_filter=false
-config/icon="res://icon.png"
-boot_splash/minimum_display_time=5000
+config/icon="res://assets/textures/icon.png"
 
 [display]
 
-window/size/viewport_width=360
-window/size/viewport_height=200
-window/size/window_width_override=640
-window/size/window_height_override=400
+window/size/viewport_width=1440
+window/size/viewport_height=800
+window/size/window_width_override=1440
+window/size/window_height_override=800
 window/stretch/mode="viewport"
 
 [editor]
@@ -43,4 +42,5 @@ mouse={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 viewport/transparent_background=true

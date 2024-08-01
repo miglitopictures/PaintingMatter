@@ -9,6 +9,13 @@ func make_2d_array(cols: int, rows: int) -> Array:
 		array_2d[col].resize(rows)  # Resize each column array to have the number of rows
 	return array_2d  # Return the created 2D array
 
+func set_selected_colors():
+	sand_color = sand_color_picker.color
+	solid_color = solid_color_picker.color
+	ever_alive_color = ever_alive_color_picker.color
+	pass
+
+var can_draw = true
 # Variables to store the grid and its dimensions
 var grid: Array
 var next_grid: Array
@@ -20,17 +27,26 @@ var grid_rows: int
 @export var resolution: int = 10  # Size of each cell in the grid
 var brush_radius = 1  # Radius of the brush for drawing and erasing
 
+
+
+
+#0 = SAND  1 = SOLID
+var brush_mode = 0
+
+
 # Exported color variables for easy manipulation from the editor
-@export var sand_color: Color = Color(1, 1, 1)  # Color for sand cells
-@export var solid_color: Color = Color(0.4, 0.4, 0.4)  # Color for solid cells
-@export var ever_alive_color: Color = Color(1, 0.5, 0)  # Color for ever alive cells
+@export var sand_color_picker : Node # Color for sand cells
+var sand_color: Color
+@export var solid_color_picker: Node # Color for solid cells
+var solid_color: Color
+@export var ever_alive_color_picker: Node  # Color for ever alive cells
+var ever_alive_color: Color
 @export var brush_color: Color = Color(0, 0.2, 0.7, 0.5)  # Color for brush preview
 @export var ctrl_brush_color: Color = Color(0.7, 0, 0.2, 0.5)  # Color for brush preview when holding Ctrl
 
 #Instruction Texture Rect Reference
 @onready var instructions = $"../Instructions"
 var menu_visible: bool = false
-
 var history_visible = true
 
 # Variables to control the simulation and brush preview position
@@ -237,6 +253,8 @@ func _ready():
 	grid_cols = int(size.x / resolution)
 	grid_rows = int(size.y / resolution)
 	
+	set_selected_colors()
+	
 	# Create the grid with the calculated dimensions
 	grid = make_2d_array(grid_cols, grid_rows)
 	next_grid = make_2d_array(grid_cols, grid_rows)
@@ -281,7 +299,7 @@ func _process(_delta):
 
 # Called to handle input events
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and can_draw:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				if Input.is_key_pressed(KEY_SHIFT):
@@ -289,7 +307,7 @@ func _input(event):
 					box_start = event.position
 					box_end = event.position
 				else:
-					if Input.is_key_pressed(KEY_CTRL):
+					if brush_mode == 1:
 						draw_circle_pattern(event.position, 2)  # Draw solid matter with Ctrl+LeftClick
 					else:
 						draw_circle_pattern(event.position, 1)  # Draw sand with LeftClick
@@ -304,7 +322,7 @@ func _input(event):
 					box_start = event.position
 					box_end = event.position
 				else:
-					if Input.is_key_pressed(KEY_CTRL):
+					if brush_mode == 1:
 						transform_circle_pattern(event.position, 2, 1)  # Convert solid matter to sand with Ctrl+RightClick
 					else:
 						erase_circle_pattern(event.position)  # Erase pattern on RightClick
@@ -316,41 +334,50 @@ func _input(event):
 			brush_radius += 0.5  # Increase brush radius on mouse wheel up
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			brush_radius = max(0, brush_radius - 1)  # Decrease brush radius on mouse wheel down
-	elif event is InputEventMouseMotion:
+	elif event is InputEventMouseMotion and can_draw:
 		brush_preview_position = event.position  # Update brush preview position on mouse move
 		if box_selecting:
 			box_end = event.position
 		else:
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				if Input.is_key_pressed(KEY_CTRL):
+				if brush_mode == 1:
 					draw_circle_pattern(event.position, 2)  # Draw solid matter with Ctrl+LeftClick
 				else:
 					draw_circle_pattern(event.position, 1)  # Draw sand with LeftClick
 			elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-				if Input.is_key_pressed(KEY_CTRL):
+				if brush_mode == 1:
 					transform_circle_pattern(event.position, 2, 1)  # Convert solid matter to sand with Ctrl+RightClick
 				else:
 					erase_circle_pattern(event.position)  # Erase pattern with RightClick
 	elif Input.is_key_pressed(KEY_SPACE):
 		simulation_running = !simulation_running  # Toggle simulation state on space key
-	elif Input.is_key_pressed(KEY_F1):
+	elif Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_H):
 		reset_history()  # Reset the grid on F1 key
-	elif Input.is_key_pressed(KEY_F2):
+	elif Input.is_key_pressed(KEY_H):
 		reset_history()
 		history_visible = not history_visible
 	elif Input.is_key_pressed(KEY_DELETE):
 		reset_grid()  # Reset the grid on ESC key
 		simulation_running = false  # Stop the simulation
-	elif Input.is_key_pressed(KEY_P):
+	elif Input.is_key_pressed(KEY_RIGHT):
 		#copy_clipboard_current_configuration()  # Print current configuration on P key
 		update_grid()
 	elif Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_S):
 		_on_save_pressed()
 	elif Input.is_key_pressed(KEY_ESCAPE):
 		menu_visible = not menu_visible
+		can_draw = not can_draw
 		instructions.visible = menu_visible # Print current configuration on P key
-	elif Input.is_key_pressed(KEY_ENTER):
+		set_selected_colors()
+		if menu_visible == true:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	elif Input.is_key_pressed(KEY_Y):
 		solidify()
+	elif Input.is_key_pressed(KEY_TAB):
+		brush_mode = ((brush_mode + 1) % 2)
+		print(brush_mode)
 	
 
 # Called to draw the scene
@@ -461,7 +488,7 @@ func erase_circle_pattern(mouse_pos: Vector2):
 func draw_circle_pattern_preview(mouse_pos: Vector2):
 	var col = int(mouse_pos.x / resolution)  # Calculate the column index based on the mouse position
 	var row = int(mouse_pos.y / resolution)  # Calculate the row index based on the mouse position
-	
+	var preview_color = ctrl_brush_color if brush_mode == 1 else brush_color
 	# Iterate over the cells within the brush radius
 	for i in range(-brush_radius, brush_radius + 1):
 		for j in range(-brush_radius, brush_radius + 1):
@@ -472,7 +499,6 @@ func draw_circle_pattern_preview(mouse_pos: Vector2):
 					var cell_position = Vector2((col + i) * resolution, (row + j) * resolution)
 					var cell_size = Vector2(resolution, resolution)
 					# Change brush preview color based on whether Ctrl is held down
-					var preview_color = ctrl_brush_color if Input.is_key_pressed(KEY_CTRL) else brush_color
 					# Draw the cell as a rectangle with transparency
 					draw_rect(Rect2(cell_position, cell_size), preview_color)
 

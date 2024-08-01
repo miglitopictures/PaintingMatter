@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqily0i65tjwf"]
+[gd_scene load_steps=5 format=3 uid="uid://bqily0i65tjwf"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_fd3m7"]
-[ext_resource type="Texture2D" uid="uid://culvrvs7d2hlh" path="res://painting matter_instructions.png" id="2_4e71x"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_fd3m7"]
+[ext_resource type="Script" path="res://scripts/BackgroundColor.gd" id="1_fuhch"]
+[ext_resource type="FontFile" uid="uid://m5fto30tp75r" path="res://assets/fonts/PixelifySans-Medium.ttf" id="3_oo1kq"]
+[ext_resource type="Script" path="res://scripts/ColorPickerButtonCustom.gd" id="3_qe3rx"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -10,28 +12,215 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_horizontal_guides_ = [704.0]
 
-[node name="Control" type="Control" parent="."]
-custom_minimum_size = Vector2(360, 200)
-layout_mode = 2
-anchors_preset = 0
-offset_right = 360.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_fd3m7")
-resolution = 2
-solid_color = Color(0.789767, 0.137074, 0.422971, 1)
-brush_color = Color(1, 0.254902, 0, 1)
-ctrl_brush_color = Color(0, 0.573333, 0.8, 1)
-
-[node name="Instructions" type="TextureRect" parent="."]
-visible = false
-texture_filter = 1
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_4e71x")
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_fuhch")
+
+[node name="SimulationControl" type="Control" parent="." node_paths=PackedStringArray("sand_color_picker", "solid_color_picker", "ever_alive_color_picker")]
+custom_minimum_size = Vector2(360, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fd3m7")
+resolution = 8
+sand_color_picker = NodePath("../Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/SandColorPicker")
+solid_color_picker = NodePath("../Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/SolidColorPicker")
+ever_alive_color_picker = NodePath("../Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/HistoryColorPicker")
+brush_color = Color(1, 0.254902, 0, 1)
+ctrl_brush_color = Color(0, 0.573333, 0.8, 1)
+
+[node name="Instructions" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.817521, 0.817521, 0.817521, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 96
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 96
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Instructions/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Instructions/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LinkButton" type="LinkButton" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.501961, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 35
+text = "PAINTING MATTER 0.0.1"
+underline = 1
+uri = "https://github.com/miglitopictures/PaintingMatter"
+
+[node name="HSeparator" type="HSeparator" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 15
+text = "A physics-simulation painting toy using using cellula automata."
+vertical_alignment = 2
+
+[node name="Label3" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 21
+text = "Commands:
+SIMULATE -> SPACEBAR
+NEXT FRAME -> RIGHT_ARROW
+DRAW  -> LEFT_CLICK
+ERASE -> RIGHT_CLICK
+RESIZE -> MOUSE WHEEL
+CHANGE MODE -> TAB
+BOX SELECT -> SHIFT+MOUSE DRAG
+SOLIDIFY -> \"Y\"
+CLEAR CANVAS -> DELETE
+TOGGLE HISTORY -> \"H\"
+CLEAR HISTORY -> CTRL + \"H\"
+SHOW INSTRUCTIONS -> ESCAPE
+SAVE IMAGE (.PNG) -> CTRL + \"S\""
+vertical_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Instructions/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 11
+alignment = 2
+
+[node name="Label3" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 21
+text = "Colors:"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 21
+text = "SAND"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="SandColorPicker" type="ColorPickerButton" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31.005)
+layout_mode = 2
+text = "SAND"
+color = Color(1, 1, 1, 1)
+script = ExtResource("3_qe3rx")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 21
+text = "SOLID"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="SolidColorPicker" type="ColorPickerButton" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 31.005)
+layout_mode = 2
+text = "SAND"
+color = Color(0.43, 0.43, 0.43, 1)
+script = ExtResource("3_qe3rx")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 21
+text = "HISTORY"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HistoryColorPicker" type="ColorPickerButton" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 31.005)
+layout_mode = 2
+text = "SAND"
+color = Color(1, 0.501961, 0, 1)
+script = ExtResource("3_qe3rx")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_oo1kq")
+theme_override_font_sizes/font_size = 21
+text = "BACKGROUND"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="BackgroundColorPicker" type="ColorPickerButton" parent="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(0, 31.005)
+layout_mode = 2
+text = "SAND"
+script = ExtResource("3_qe3rx")
+
+[connection signal="color_changed" from="Instructions/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4/BackgroundColorPicker" to="BackgroundColorRect" method="_on_background_color_picker_color_changed"]
