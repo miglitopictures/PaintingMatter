@@ -66,29 +66,12 @@ If you found a bug or have a new idea/feature for the program, [you can report t
 
 
 # Credits
+
 Developed by [Miglito](https://www.instagram.com/miglitopictures)
+
 Boot screen artwork by [Ryan Yves](https://www.instagram.com/naoquenao/)
 
 
 # License
-This program is distributed under the [MIT License](https://link-url-here.org)
-=======
-# PaintingMatter
- A simple painting program with some CA explorations made with Godot 4.2!
 
-
-Commands:
-- SIMULATE -> SPACEBAR
-- NEXT FRAME -> RIGHT_ARROW
-- DRAW  -> LEFT_CLICK
-- ERASE -> RIGHT_CLICK
-- RESIZE -> MOUSE WHEEL
-- CHANGE MODE -> TAB
-- BOX SELECT -> SHIFT+MOUSE DRAG
-- SOLIDIFY -> "Y"
-- CLEAR CANVAS -> DELETE
-- TOGGLE HISTORY -> "H"
-- CLEAR HISTORY -> CTRL + "H"
-- SHOW INSTRUCTIONS -> ESCAPE
-- SAVE IMAGE (.PNG) -> CTRL + "S"
->>>>>>> 2ec753b2bdaef07eabc24071efaab85c11c31790
+This program is distributed under the **MIT License**
