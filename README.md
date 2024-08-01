@@ -5,7 +5,7 @@
 
 # Introduction
 
- I`m happy to release PaintingMatter v0.0.1, a physics-based painting toy featuring Cellular Automata (CA) explorations, developed with Godot 4.2 as a study practice. This early version aims to provide a foundation for future development and invites the open-source community to contribute and expand its capabilities.
+ I`m happy to release **PaintingMatter v0.0.1**, a physics-based painting toy featuring Cellular Automata (CA) explorations, developed with Godot 4.2 as a study practice. This early version aims to provide a foundation for future development and invites the open-source community to contribute and expand its capabilities.
 
 
 # Cellular Automata
@@ -17,44 +17,44 @@ A cellular automaton consists of a regular grid of cells, each in one of a finit
 
 I have to apologize, but there isn`t much in terms of graphical interface, yet! I shurely plan to implement it but, meanwhile, here is lisk of the keyboard commands:
 
-## SIMULATE -> SPACEBAR
+**SIMULATE -> SPACEBAR**
 Painting Matter will boot with the simulation paused by default, to run it press the spacebar.
 
-## NEXT FRAME -> RIGHT_ARROW
+**NEXT FRAME -> RIGHT_ARROW**
 While testing, a need to more meticously control the simulation frames apeared. Ideally, you should be able to go back and forth, easely going back a few frames changing something to see the outcome. For now, use the right arrow to jump a frame in the simulation. 
 
-## DRAW  -> LEFT_CLICK
+**DRAW  -> LEFT_CLICK**
 Left click to draw.
 
-## ERASE -> RIGHT_CLICK
+**ERASE -> RIGHT_CLICK**
 Right click to erase.*
 *If current draw mode is sand (RED), the eraser acts on any type of matter. If in solid draw mode (BLUE), the eraser acts as a dissolver, transforming solid matter into sand.
 
-## RESIZE -> MOUSE WHEEL
+**RESIZE -> MOUSE WHEEL**
 Use the mouse wheel to change your brush size.
 
-## CHANGE MODE -> TAB
+**CHANGE MODE -> TAB**
 Change draw mode, the current draw mode represents the type of matter you strokes will include in the simulation. By default, the draw mode is set to sand (RED), press tab to change it to solid (BLUE).
 
-## BOX SELECT -> SHIFT+MOUSE DRAG
+**BOX SELECT -> SHIFT+MOUSE DRAG**
 Hold shift, click and drag to create a rectange selection, this area will be affected in the same way the "normal" drawing and erasing would, depending on the current mode.
 
-## SOLIDIFY -> "Y"
+**SOLIDIFY -> "Y"**
 Transform all matter into solid! A very experimental and niche feature, but it does look good.
 
-## CLEAR CANVAS -> DELETE
+**CLEAR CANVAS -> DELETE**
 Erase everithing from the canvas.
 
-## TOGGLE HISTORY -> "H"
+**TOGGLE HISTORY -> "H"**
 I am calling it history although i dont know is a good descriotion yet. i am refering to the (orange by default) mark your brush leaves in the background as you draw and the pixels enter the simulation. I should be usefull for drawing specific static shapes that dont affect the simulation lije a background or something like that, but sometimes its a little distracting, so i added a shortcut to disable it.
 
-## CLEAR HISTORY -> CTRL + "H"
+**CLEAR HISTORY -> CTRL + "H"**
 Clear the history, but maintain it enabled.
 
-## SHOW INSTRUCTIONS -> ESCAPE
+**SHOW INSTRUCTIONS -> ESCAPE**
 Press escape to go to the menu, there you will find the current colors (change those by clickng it) and a list of the instructions! As well as a link for this very github repository.
 
-## SAVE IMAGE (.PNG) -> CTRL + "S"
+**SAVE IMAGE (.PNG) -> CTRL + "S"**
 Saves a PNG file on your directory of choice!
 
 
