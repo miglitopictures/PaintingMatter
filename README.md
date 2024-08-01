@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # PaintingMatter 0.0.1
 *A simple painting program with some CA explorations made with Godot 4.2!*
 
