@@ -60,9 +60,9 @@ I have to apologize, but there isn`t much in terms of graphical interface, yet! 
 
 # Issues
 
-There is a list of [Known Issues](https://link-url-here.org) (things to be fixed or that aren't yet implemented).
+There is a list of [Known Issues](https://github.com/miglitopictures/PaintingMatter/issues) (things to be fixed or that aren't yet implemented).
 
-If you found a bug or have a new idea/feature for the program, [you can report them](https://link-url-here.org).
+If you found a bug or have a new idea/feature for the program, [you can report them](https://github.com//miglitopictures/PaintingMatter/issues/new).
 
 
 # Credits
