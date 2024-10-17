@@ -385,14 +385,12 @@ func _draw():
 	# Draw the grid cells
 	for col in range(grid_cols):
 		for row in range(grid_rows):
+			var cell_position = Vector2(col * resolution, row * resolution)  # Calculate cell position
 			if grid[col][row] == 1:
-				var cell_position = Vector2(col * resolution, row * resolution)  # Calculate cell position
 				draw_rect(Rect2(cell_position, Vector2(resolution, resolution)), sand_color)  # Draw sand cell as white rectangle
 			elif grid[col][row] == 2:
-				var cell_position = Vector2(col * resolution, row * resolution)  # Calculate cell position
 				draw_rect(Rect2(cell_position, Vector2(resolution, resolution)), solid_color)  # Draw solid cell as gray rectangle
 			elif ever_alive_grid[col][row] == 1:
-				var cell_position = Vector2(col * resolution, row * resolution)  # Calculate cell position
 				draw_rect(Rect2(cell_position, Vector2(resolution, resolution)), ever_alive_color)  # Draw cell as orange rectangle
 	
 	
@@ -415,23 +413,35 @@ func within_rows(i):
 
 # Function to update the grid for the next simulation step
 func update_grid():
-	for i in range(grid_cols):
-		for j in range(grid_rows):
-			next_grid[i][j] = 0  # Reset next grid
-
-	for i in range(grid_cols):
-		for j in range(grid_rows):
-			if grid[i][j] == 1:  # If it's sand
-				if j + 1 < grid_rows and grid[i][j + 1] == 0:
-					next_grid[i][j + 1] = grid[i][j]
-				elif i > 0 and j + 1 < grid_rows and grid[i - 1][j + 1] == 0:
-					next_grid[i - 1][j + 1] = grid[i][j]
-				elif i + 1 < grid_cols and j + 1 < grid_rows and grid[i + 1][j + 1] == 0:
-					next_grid[i + 1][j + 1] = grid[i][j]
+	# Use constants for grid dimensions
+	var cols = grid_cols
+	var rows = grid_rows
+	
+	# Reset next grid in a single loop
+	for i in range(cols):
+		for j in range(rows):
+			next_grid[i][j] = 0
+	
+	# Update grid based on current state
+	for i in range(cols):
+		for j in range(rows):
+			var current_value = grid[i][j]
+			if current_value == 1:  # If it's sand
+				if j + 1 < rows:
+					if grid[i][j + 1] == 0:
+						next_grid[i][j + 1] = current_value
+					elif i > 0 and grid[i - 1][j + 1] == 0:
+						next_grid[i - 1][j + 1] = current_value
+					elif i + 1 < cols and grid[i + 1][j + 1] == 0:
+						next_grid[i + 1][j + 1] = current_value
+					else:
+						next_grid[i][j] = current_value
 				else:
-					next_grid[i][j] = grid[i][j]
-			elif grid[i][j] == 2 :
-				next_grid[i][j] = grid[i][j]
+					next_grid[i][j] = current_value
+			elif current_value == 2:
+				next_grid[i][j] = current_value
+	
+	# Swap grids
 	var temp = grid
 	grid = next_grid
 	next_grid = temp
