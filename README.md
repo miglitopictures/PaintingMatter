@@ -1,11 +1,14 @@
 # PaintingMatter 0.0.1
-*A simple painting program with some CA explorations made with Godot 4.2!*
+*A simple painting program with some CA explorations made in Godot 4.2*
+
+
+DISCLAIMER: !!This program was made mostly with ChatGPT!!
 
 
 
 # Introduction
 
-I’m happy to release **PaintingMatter v0.0.1**, a physics-based painting toy featuring Cellular Automata (CA) explorations, developed with Godot 4.2 as a study practice. This early version aims to provide a foundation for future development and invites the open-source community to contribute and expand its capabilities.
+I’m happy to release **PaintingMatter v0.0.1**, a physics-based painting toy featuring Cellular Automata (CA) explorations, developed with Godot 4.2 as a study practice.
 
 
 # Cellular Automata
