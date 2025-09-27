@@ -2,7 +2,7 @@
 *A simple painting program with some CA explorations made in Godot 4.2*
 
 
-DISCLAIMER: !!This program was made mostly with ChatGPT!!
+*DISCLAIMER: !!This program was made mostly with ChatGPT!!*
 
 
 
